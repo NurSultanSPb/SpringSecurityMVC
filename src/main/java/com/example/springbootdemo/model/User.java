@@ -71,4 +71,8 @@ public class User {
             this.age = -1;
         }
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

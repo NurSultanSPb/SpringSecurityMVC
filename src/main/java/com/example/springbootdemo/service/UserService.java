@@ -33,12 +33,8 @@ public class UserService {
     }
 
     public void update(int id, User updatedPerson) {
-        User toBeUpdated = show(id);
-        toBeUpdated.setName(updatedPerson.getName());
-        toBeUpdated.setSurname(updatedPerson.getSurname());
-        toBeUpdated.setCity(updatedPerson.getCity());
-        toBeUpdated.setAge(updatedPerson.getAge());
-        usersRepository.save(toBeUpdated);
+        updatedPerson.setId(id);
+        usersRepository.save(updatedPerson);
     }
 
     public void delete(int id) {
