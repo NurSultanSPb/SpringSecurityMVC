@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый пользователь</title>
+    <style>
+        .btn {
+            display: inline-block; /* Строчно-блочный элемент */
+            background: #8C959D; /* Серый цвет фона */
+            color: #fff; /* Белый цвет текста */
+            padding: 1rem 1.5rem; /* Поля вокруг текста */
+            text-decoration: none; /* Убираем подчёркивание */
+            border-radius: 3px; /* Скругляем уголки */
+            margin-left:70px;
+        }
+        .text-block {
+            margin-left:30px;
+        }
+        .text-block2 {
+            margin-left:100px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h2 class="text-block2">Новый пользователь</h2>
+</div>
+
+<div class="text-block">
+
+<form th:method="POST" th:action="@{/}" th:object="${person}">
+    <label for="name">Введите имя: </label>
+    <input type="text" th:field="*{name}" id="name" />
+    <br/>
+    <label for="surname">Введите фамилию: </label>
+    <input type="text" th:field="*{surname}" id="surname" />
+    <br/>
+    <label for="city">Город проживания: </label>
+    <input type="text" th:field="*{city}" id="city" />
+    <br/>
+    <label for="age">Укажите возраст: </label>
+    <input type="number" th:field="*{age}" id="age" />
+    <br/>
+    <input type="submit" value="Создать">
+</form>
+
+<br/>
+</div>
+
+<h5>
+    <a href="/" class="btn"> К списку пользователей! </a>
+</h5>
+
+
+</body>
+</html>
