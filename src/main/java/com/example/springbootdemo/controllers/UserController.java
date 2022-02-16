@@ -2,6 +2,7 @@ package com.example.springbootdemo.controllers;
 
 import com.example.springbootdemo.model.User;
 import com.example.springbootdemo.service.UserService;
+import com.example.springbootdemo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
