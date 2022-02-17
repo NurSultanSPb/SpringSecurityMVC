@@ -42,16 +42,16 @@
     <tr th:each="person : ${people}">
         <td th:text="${person.getId()}">Id</td>
         <td>
-            <a th:href="@{/{id}(id = ${person.getId()})}" th:text="${person.getName()}">Name</a>
+            <a th:href="@{/users/{id}(id = ${person.getId()})}" th:text="${person.getName()}">Name</a>
         </td>
         <td th:text="${person.getSurname()}">Surname</td>
         <td th:text="${person.getCity()}">City</td>
         <td th:text="${person.getAge()}">0</td>
         <td>
-            <a th:href="@{/{id}/edit (id = ${person.getId()})}">FIX</a>
+            <a th:href="@{/users/{id}/edit (id = ${person.getId()})}">FIX</a>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/{id}(id = ${person.getId()})}">
+            <form th:method="DELETE" th:action="@{/users/{id}(id = ${person.getId()})}">
                 <input type="submit" value="__X__"/>
             </form>
         </td>
@@ -63,7 +63,7 @@
 <hr/>
 
 <h5>
-    <a href="/new" class="btn"> Добавить нового пользователя! </a>
+    <a href="/users/new" class="btn"> Добавить нового пользователя! </a>
 </h5>
 
 </body>

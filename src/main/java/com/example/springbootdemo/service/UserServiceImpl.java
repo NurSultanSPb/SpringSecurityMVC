@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Transactional(readOnly = true)
-    public List<User> index() {
+    public List<User> getAllUsers() {
         return usersRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public User show(int id) {
+    public User getUserById(int id) {
         Optional<User> foundUser = usersRepository.findById(id);
         return foundUser.orElse(null);
     }

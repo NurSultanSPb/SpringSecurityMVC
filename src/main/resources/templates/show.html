@@ -39,12 +39,12 @@
 
 <hr/>
 <div class="text-block">
-    <a th:href="@{/{id}/edit (id = ${person.getId()})}">Редактировать</a>
+    <a th:href="@{/users/{id}/edit (id = ${person.getId()})}">Редактировать</a>
 </div>
 <hr/>
 
 <div class="text-block">
-<form th:method="DELETE" th:action="@{/{id}(id = ${person.getId()})}">
+<form th:method="DELETE" th:action="@{/users/{id}(id = ${person.getId()})}">
     <input type="submit" value="Удалить!"/>
 </form>
 </div>
@@ -52,7 +52,7 @@
 <hr/>
 
 <h5>
-    <a href="/" class="btn"> К списку пользователей! </a>
+    <a href="/users" class="btn"> К списку пользователей! </a>
 </h5>
 
 
