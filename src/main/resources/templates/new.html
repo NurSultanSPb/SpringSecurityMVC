@@ -32,15 +32,20 @@
 <form th:method="POST" th:action="@{/users}" th:object="${person}">
     <label for="name">Введите имя: </label>
     <input type="text" th:field="*{name}" id="name" />
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>-->
     <br/>
     <label for="surname">Введите фамилию: </label>
     <input type="text" th:field="*{surname}" id="surname" />
+    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
     <br/>
     <label for="city">Город проживания: </label>
     <input type="text" th:field="*{city}" id="city" />
+    <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City error</div>
     <br/>
     <label for="age">Укажите возраст: </label>
     <input type="number" th:field="*{age}" id="age" />
+    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
     <br/>
     <input type="submit" value="Создать">
 </form>

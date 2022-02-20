@@ -1,6 +1,10 @@
 package com.example.springbootdemo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "people")
@@ -9,16 +13,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
+    @NotEmpty(message = "Name shouldn't be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 letters")
     @Column(name = "name")
     private String name;
 
+    @NotEmpty(message = "Surname shouldn't be empty")
     @Column(name = "surname")
     private String surname;
 
+    @NotEmpty(message = "City shouldn't be empty")
     @Column(name = "hometown")
     private String city;
 
+    @Min(value = 0, message = "Age should be more than 0")
+    @Max(value = 130, message = "Age can't be more than 130")
     @Column(name = "age")
     private int age;
 
@@ -64,12 +74,7 @@ public class User {
     }
 
     public void setAge(int age) {
-
-        if (age >= 0 && age < 150) {
-            this.age = age;
-        } else {
-            this.age = -1;
-        }
+        this.age = age;
     }
 
     public void setId(int id) {
