@@ -10,4 +10,6 @@ public interface UserService {
     void save(User person);
     void update(int id, User updatedPerson);
     void delete(int id);
+    boolean saveUser(User user);
+    User findUserByUsername(String username);
 }

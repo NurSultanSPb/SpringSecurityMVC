@@ -29,22 +29,24 @@
 
 <div class="text-block">
 
-<p th:text="'Id: ' + ${person.getId()}">Id</p>
-<p th:text="'Имя: ' + ${person.getName()}">Name</p>
-<p th:text="'Фамилия: ' + ${person.getSurname()}">Surname</p>
-<p th:text="'Город: ' + ${person.getCity()}">City</p>
-<p th:text="'Возраст: ' + ${person.getAge()}">Age</p>
+    <p th:text="'Id: ' + ${person.getId()}">Id</p>
+    <p th:text="'Имя: ' + ${person.getName()}">Name</p>
+    <p th:text="'Фамилия: ' + ${person.getSurname()}">Surname</p>
+    <p th:text="'Город: ' + ${person.getCity()}">City</p>
+    <p th:text="'Возраст: ' + ${person.getAge()}">Age</p>
+    <p th:text="'Имя пользователя: ' + ${person.getUsername()}">Username</p>
+    <p th:text="'Роль: ' + ${person.getRoles()}">Roles</p>
 
 </div>
 
 <hr/>
 <div class="text-block">
-    <a th:href="@{/users/{id}/edit (id = ${person.getId()})}">Редактировать</a>
+    <a th:href="@{/admin/{id}/edit (id = ${person.getId()})}">Редактировать</a>
 </div>
 <hr/>
 
 <div class="text-block">
-<form th:method="DELETE" th:action="@{/users/{id}(id = ${person.getId()})}">
+<form th:method="DELETE" th:action="@{/admin/{id}(id = ${person.getId()})}">
     <input type="submit" value="Удалить!"/>
 </form>
 </div>
@@ -52,10 +54,13 @@
 <hr/>
 
 <h5>
-    <a href="/users" class="btn"> К списку пользователей! </a>
+    <a href="/admin" class="btn"> К списку пользователей! </a>
 </h5>
 
 
+<form class="form-signin" method="get" action="/logout">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log out</button>
+</form>
 
 </body>
 </html>

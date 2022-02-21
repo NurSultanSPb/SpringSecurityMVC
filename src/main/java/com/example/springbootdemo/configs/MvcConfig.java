@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/users").setViewName("list");
+        registry.addViewController("/").setViewName("index");
     }
 
 }
