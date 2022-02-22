@@ -11,6 +11,7 @@ public class Role implements GrantedAuthority {
     @Id
     private int id;
 
+    @Column(name = "name", unique = true)
     private String name;
 
     @Transient

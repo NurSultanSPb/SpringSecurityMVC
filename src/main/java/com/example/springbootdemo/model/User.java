@@ -37,6 +37,7 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "username", unique = true)
     @Size(min=2, message = "Username should contain more than 2 letters")
     private String username;
 

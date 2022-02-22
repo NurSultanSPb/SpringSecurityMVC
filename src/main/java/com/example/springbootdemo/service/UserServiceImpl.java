@@ -41,14 +41,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return foundUser.orElse(null);
     }
 
-    public void save(User person) {
-        usersRepository.save(person);
-    }
-
     public void update(int id, User updatedPerson) {
-        User userToBeUpdated = usersRepository.getById(id);
-        updatedPerson.setRoles(userToBeUpdated.getRoles());
         updatedPerson.setId(id);
+        updatedPerson.setPassword(bCryptPasswordEncoder.encode(updatedPerson.getPassword()));
         usersRepository.save(updatedPerson);
     }
 
@@ -75,7 +70,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role(2, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
         return true;
