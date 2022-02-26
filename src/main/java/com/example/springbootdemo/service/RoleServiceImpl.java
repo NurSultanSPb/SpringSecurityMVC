@@ -1,31 +1,36 @@
 package com.example.springbootdemo.service;
 
+import com.example.springbootdemo.DAO.RolesDAO;
 import com.example.springbootdemo.model.Role;
-import com.example.springbootdemo.repositories.RolesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService{
 
-    private final RolesRepository rolesRepository;
+    private final RolesDAO rolesDAO;
 
-    @Autowired
-    public RoleServiceImpl(RolesRepository rolesRepository) {
-        this.rolesRepository = rolesRepository;
+    public RoleServiceImpl(RolesDAO rolesDAO) {
+        this.rolesDAO = rolesDAO;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Role getByName(String name) {
-        return rolesRepository.getByName(name);
+        return rolesDAO.getByName(name);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
-        return rolesRepository.findAll();
+        return rolesDAO.getAllRoles();
+    }
+
+    @Override
+    public void addRole(Role role) {
+        rolesDAO.addRole(role);
     }
 }

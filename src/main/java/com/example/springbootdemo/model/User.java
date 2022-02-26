@@ -150,4 +150,13 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public User(String name, String surname, String city, int age, String username, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
+        this.age = age;
+        this.username = username;
+        this.password = password;
+    }
 }

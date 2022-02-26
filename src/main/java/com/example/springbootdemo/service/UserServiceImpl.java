@@ -1,62 +1,62 @@
 package com.example.springbootdemo.service;
 
+import com.example.springbootdemo.DAO.RolesDAO;
+import com.example.springbootdemo.DAO.UsersDAO;
 import com.example.springbootdemo.model.Role;
 import com.example.springbootdemo.model.User;
-import com.example.springbootdemo.repositories.RolesRepository;
-import com.example.springbootdemo.repositories.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private final UsersRepository usersRepository;
-    private final RolesRepository rolesRepository;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UsersDAO usersDAO;
+    private final RolesDAO rolesDAO;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserServiceImpl(UsersRepository usersRepository, RolesRepository rolesRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.usersRepository = usersRepository;
-        this.rolesRepository = rolesRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public UserServiceImpl(UsersDAO usersDAO, RolesDAO rolesDAO, PasswordEncoder passwordEncoder) {
+        this.usersDAO = usersDAO;
+        this.rolesDAO = rolesDAO;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return usersRepository.findAll();
+        return usersDAO.getAllUsers();
     }
 
     @Transactional(readOnly = true)
     public User getUserById(int id) {
-        Optional<User> foundUser = usersRepository.findById(id);
-        return foundUser.orElse(null);
+        return usersDAO.getUserById(id);
     }
 
-    public void update(int id, User updatedPerson) {
-        User userToBeUpdated = usersRepository.getById(id);
-        updatedPerson.setId(id);
-        if(!userToBeUpdated.getPassword().equals(updatedPerson.getPassword())) {
-            updatedPerson.setPassword(bCryptPasswordEncoder.encode(updatedPerson.getPassword()));
+    public void update(int id, User updatedPerson, String[] roleNames) {
+        Set<Role> roles = new HashSet<>();
+        for (String role : roleNames) {
+            roles.add(rolesDAO.getByName(role));
         }
-        usersRepository.save(updatedPerson);
+        updatedPerson.setRoles(roles);
+        usersDAO.update(id, updatedPerson);
     }
 
     public void delete(int id) {
-        usersRepository.deleteById(id);
+        usersDAO.delete(id);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = usersRepository.findUserByUsername(username);
+        User user = usersDAO.findUserByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -66,21 +66,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean saveUser(User user) {
-        User userFromDB = usersRepository.findUserByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
+    public boolean saveUser(User user, String[] roleNames) {
+        Set<Role> roles = new HashSet<>();
+        for (String role : roleNames) {
+            roles.add(rolesDAO.getByName(role));
         }
-
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        usersRepository.save(user);
-        return true;
+        user.setRoles(roles);
+        return usersDAO.saveUser(user);
     }
 
     @Override
     public User findUserByUsername(String username) {
-        return usersRepository.findUserByUsername(username);
+        return usersDAO.findUserByUsername(username);
+    }
+
+    @Override
+    public void save(User user) {
+        usersDAO.save(user);
     }
 
 }

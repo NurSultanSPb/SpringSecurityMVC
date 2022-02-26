@@ -1,12 +1,10 @@
-package com.example.springbootdemo.service;
-
+package com.example.springbootdemo.DAO;
 
 import com.example.springbootdemo.model.Role;
 
-import java.util.HashSet;
 import java.util.List;
 
-public interface RoleService {
+public interface RolesDAO {
     Role getByName(String name);
     List<Role> getAllRoles();
     void addRole(Role role);
