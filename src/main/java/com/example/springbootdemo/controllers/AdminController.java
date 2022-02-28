@@ -50,11 +50,9 @@ public class AdminController {
     public String create(@ModelAttribute("person") @Valid User person,
                          BindingResult bindingResult,
                          @RequestParam(value = "role") String[] roleNames) {
-
         if (bindingResult.hasErrors()) {
             return "new";
         }
-
         userService.saveUser(person, roleNames);
         return "redirect:/admin";
     }
@@ -74,12 +72,6 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        //перенести этот цикл в метод сервиса!
-//        Set<Role> roles = new HashSet<>();
-//        for (String role : roleNames) {
-//            roles.add(roleService.getByName(role));
-//        }
-//        person.setRoles(roles);
         userService.update(id, person, roleNames);
         return "redirect:/admin";
     }

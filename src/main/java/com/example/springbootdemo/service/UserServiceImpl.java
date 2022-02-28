@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return usersDAO.getAllUsers();
@@ -57,11 +56,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = usersDAO.findUserByUsername(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return user;
     }
 

@@ -64,6 +64,5 @@ public class UsersDAOImpl implements UsersDAO{
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
-
     }
 }
